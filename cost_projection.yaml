@@ -1,0 +1,7 @@
+assumptions: "5000 busquedas/dia y 300 reservas/dia; backend y base 24/7; stream de Kinesis solo mientras se prueba (~60 h/mes, retencion 24 h); refresh del modelo estrella cada 15 min con Athena; < 2 GB en S3"
+line_items:
+  - {service: "EC2", detail: "t3.small backend FastAPI + consumidor del stream, EBS 8 GB gp3", monthly_usd: 15.82}
+  - {service: "RDS", detail: "db.t4g.micro PostgreSQL single-AZ, 20 GB gp3", monthly_usd: 13.98}
+  - {service: "Kinesis", detail: "1 shard provisionado solo mientras se prueba (~60 h) + PUT payload units", monthly_usd: 1.00}
+  - {service: "S3", detail: "zona de aterrizaje JSON gzip + Parquet del modelo estrella + resultados de Athena (< 2 GB)", monthly_usd: 0.10}
+  - {service: "Athena", detail: "refresh del modelo estrella y consultas de negocio (pocos MB por consulta, limite 1 GB)", monthly_usd: 0.50}
